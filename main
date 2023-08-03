@@ -1,0 +1,67 @@
+class ToDoList:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append({"task": task, "done": False})
+        print("Zadanie dodane!")
+
+    def display_tasks(self):
+        if not self.tasks:
+            print("Brak zadań.")
+        else:
+            print("Lista zadań:")
+            for idx, task in enumerate(self.tasks, start=1):
+                status = "✓" if task["done"] else " "
+                print(f"{idx}. [{status}] {task['task']}")
+
+    def mark_done(self, task_index):
+        if 1 <= task_index <= len(self.tasks):
+            self.tasks[task_index - 1]["done"] = True
+            print("Zadanie oznaczone jako ukończone.")
+        else:
+            print("Nieprawidłowy indeks zadania.")
+
+    def delete_task(self, task_index):
+        if 1 <= task_index <= len(self.tasks):
+            deleted_task = self.tasks.pop(task_index - 1)
+            print(f"Zadanie '{deleted_task['task']}' usunięte.")
+        else:
+            print("Nieprawidłowy indeks zadania.")
+
+
+def main():
+    todo_list = ToDoList()
+
+    while True:
+        print("\n1. Dodaj zadanie")
+        print("2. Przeglądaj zadania")
+        print("3. Oznacz zadanie jako ukończone")
+        print("4. Usuń zadanie")
+        print("5. Zakończ")
+
+        choice = input("Wybierz opcję: ")
+
+        if choice == "1":
+            task = input("Podaj treść zadania: ")
+            todo_list.add_task(task)
+
+        elif choice == "2":
+            todo_list.display_tasks()
+
+        elif choice == "3":
+            task_index = int(input("Podaj numer zadania do oznaczenia: "))
+            todo_list.mark_done(task_index)
+
+        elif choice == "4":
+            task_index = int(input("Podaj numer zadania do usunięcia: "))
+            todo_list.delete_task(task_index)
+
+        elif choice == "5":
+            break
+
+        else:
+            print("Nieprawidłowa opcja!")
+
+if __name__ == "__main__":
+    main()
